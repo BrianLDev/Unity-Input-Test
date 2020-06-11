@@ -1,5 +1,6 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/ControlMaps/PointerControls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Touch Demo/ControlMaps/PointerControls.inputactions'
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
@@ -7,10 +8,10 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace InputSamples.Controls
 {
-    public class PointerControls : IInputActionCollection
+    public class @PointerControls : IInputActionCollection, IDisposable
     {
-        private InputActionAsset asset;
-        public PointerControls()
+        public InputActionAsset asset { get; }
+        public @PointerControls()
         {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""PointerControls"",
@@ -491,7 +492,7 @@ namespace InputSamples.Controls
             m_pointer_point = m_pointer.FindAction("point", throwIfNotFound: true);
         }
 
-        ~PointerControls()
+        public void Dispose()
         {
             UnityEngine.Object.Destroy(asset);
         }
@@ -541,8 +542,8 @@ namespace InputSamples.Controls
         private readonly InputAction m_pointer_point;
         public struct PointerActions
         {
-            private PointerControls m_Wrapper;
-            public PointerActions(PointerControls wrapper) { m_Wrapper = wrapper; }
+            private @PointerControls m_Wrapper;
+            public PointerActions(@PointerControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @point => m_Wrapper.m_pointer_point;
             public InputActionMap Get() { return m_Wrapper.m_pointer; }
             public void Enable() { Get().Enable(); }
@@ -553,16 +554,16 @@ namespace InputSamples.Controls
             {
                 if (m_Wrapper.m_PointerActionsCallbackInterface != null)
                 {
-                    point.started -= m_Wrapper.m_PointerActionsCallbackInterface.OnPoint;
-                    point.performed -= m_Wrapper.m_PointerActionsCallbackInterface.OnPoint;
-                    point.canceled -= m_Wrapper.m_PointerActionsCallbackInterface.OnPoint;
+                    @point.started -= m_Wrapper.m_PointerActionsCallbackInterface.OnPoint;
+                    @point.performed -= m_Wrapper.m_PointerActionsCallbackInterface.OnPoint;
+                    @point.canceled -= m_Wrapper.m_PointerActionsCallbackInterface.OnPoint;
                 }
                 m_Wrapper.m_PointerActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    point.started += instance.OnPoint;
-                    point.performed += instance.OnPoint;
-                    point.canceled += instance.OnPoint;
+                    @point.started += instance.OnPoint;
+                    @point.performed += instance.OnPoint;
+                    @point.canceled += instance.OnPoint;
                 }
             }
         }
